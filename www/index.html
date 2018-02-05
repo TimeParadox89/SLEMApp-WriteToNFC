@@ -66,10 +66,14 @@
                     <input type="text" name="fiscalcodeMan" id="fiscalcodeMan">
                     <br> Warehouse ID:
                     <input type="text" name="warehouseIDMan" id="warehouseIDMan">
+                    <br> Token ID:
+                    <input type="text" name="tokenIDMan" id="tokenIDMan" disabled>
                 </form>
             </div>
 
             <div class="" id="resultBoxMan" hidden></div>
+
+            <button onclick="app.getAccessToken();">Get an Access Token</button>
 
             <center>
                 <div id="loader"></div>
@@ -95,6 +99,8 @@
                     <input type="text" name="fiscalcodeManRead" id="fiscalcodeManRead" disabled>
                     <br> Warehouse ID:
                     <input type="text" name="warehouseIDManRead" id="warehouseIDManRead" disabled>
+                    <br> Token ID:
+                    <input type="text" name="tokenIDManRead" id="tokenIDManRead" disabled>
                 </form>
             </div>
 
@@ -106,34 +112,7 @@
         </div>
     </div>
 
-
-
-    <div data-role="page" id="lettura_page">
-        <div data-role="header" data-position="fixed">
-            <h1>Warehouse</h1>
-            <a href="#home" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-inline">Back</a>
-        </div>
-        <div class="ul-content" role="main">
-            <h2>Hello User, here you che try the NFC read function</h2>
-            <div id="read_result"></div>
-            <div id="status_div"></div>
-
-        </div>
-    </div>
-
-    <div data-role="page" id="scrittura_page">
-        <div data-role="header">
-            <a href="#home" data-transition="slide" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-inline">Back</a>
-            <h1>MS</h1>
-        </div>
-        <div role="main" class="ui-content">
-            <div id="write_div">OJust place a text here to try the NFC function</div>
-            <input type="text" id="write_text_input">
-            <div id="write_result"></div>
-            <div id="status_div"></div>
-        </div>
-    </div>
-
+    
     <script>
         $(document).ready(app.initialize);
     </script>

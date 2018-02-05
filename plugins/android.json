@@ -12,6 +12,9 @@
     },
     "phonegap-nfc": {
       "PACKAGE_NAME": "kms.teamthree.slem"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "kms.teamthree.slem.writetonfc"
     }
   },
   "dependent_plugins": {}

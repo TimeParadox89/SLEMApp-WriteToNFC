@@ -46,7 +46,7 @@ var app = {
 
         switch (currentPage) {
             case app.pages.WRITEMAN:
-                var message = [ndef.textRecord($("#fiscalcodeMan").val()), ndef.textRecord($("#warehouseIDMan").val())];
+                var message = [ndef.textRecord($("#fiscalcodeMan").val()), ndef.textRecord($("#warehouseIDMan").val()),  ndef.textRecord($("#tokenIDMan").val())];
                 // write the record to the tag:
                 nfc.write(
                     message, // write the record itself to the tag
@@ -69,13 +69,48 @@ var app = {
                 var tag = nfcEvent.tag;
                 var manID = ndef.textHelper.decodePayload(tag.ndefMessage[0].payload);
                 var whID = ndef.textHelper.decodePayload(tag.ndefMessage[1].payload);
+                var tknID = ndef.textHelper.decodePayload(tag.ndefMessage[2].payload);
                 //fare controlli sul terzo elemento
                 $('#fiscalcodeManRead').val(manID);
                 $('#warehouseIDManRead').val(whID);
+                $('#tokenIDManRead').val(tknID);
                 break;
             default:
             //doNothing();
         }
+    },
+
+    getAccessToken: function () {
+        var win = window.open("http://petprojects.altervista.org/Authentication/", "_blank", "location=no");
+
+        win.addEventListener("loadstop", function () {
+
+            // Clear out the name in localStorage for subsequent opens.
+            win.executeScript({ code: "localStorage.setItem( 'tokenID', '' );" });
+
+            // Start an interval
+            var loop = setInterval(function () {
+
+                // Execute JavaScript to check for the existence of a name in the
+                // child browser's localStorage.
+                win.executeScript(
+                    {
+                        code: "localStorage.getItem( 'tokenID' )"
+                    },
+                    function (values) {
+                        var tokenid = values[0];
+
+                        // If a name was set, clear the interval and close the InAppBrowser.
+                        if (tokenid) {
+                            clearInterval(loop);
+                            win.close();
+                            document.getElementById("tokenIDMan").value = tokenid;
+                        }
+                    }
+                );
+            });
+        });
+
     },
 
     clearAlerts: function () {
